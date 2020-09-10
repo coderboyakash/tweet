@@ -48,15 +48,21 @@
         <div class="col-lg-6">
         <h3>Your Profile</h3>
         <div class="row">
-            <div class="col-lg-3 offset-lg-4">
+            <div class="col-lg-7 offset-lg-3">
                 <div>Name : {{$user->name}}</div>
                 <div>Followers : {{count($user->followers)}}</div>
             </div>
-            @if(following_or_not2($user->id))
-                <a class="btn btn-primary" href="{{ route('user.follow', $user->id) }}">Follow</a>
-            @elseif(!following_or_not2($user->id))
-                <a class="btn btn-warning" href="{{ route('user.unfollow', $user->id) }}">Following</a>
-            @endif
+            <div class="row">
+                <div class="col-lg-5">
+                    @if(Auth::user()->id != $user->id)
+                        @if(following_or_not2($user->id))
+                            <a class="btn btn-primary" href="{{ route('user.follow', $user->id) }}">Follow</a>
+                        @elseif(!following_or_not2($user->id))
+                            <a class="btn btn-warning" href="{{ route('user.unfollow', $user->id) }}">Following</a>
+                        @endif
+                    @endif
+                </div> 
+            </div>
         </div>
         <h3 class="mt-5">Followers</h3>
         <div class="row">
