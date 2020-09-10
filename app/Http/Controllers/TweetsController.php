@@ -93,10 +93,10 @@ class TweetsController extends Controller
         $msg = "Data Deleted Successfully";
         return response()->json(array('msg'=> $msg), 200);
     }
+    
     public function search(Request $request)
     {
-        $query = $request->search;
-        $tweets = Tweet::where('title', 'like', '%'.$query.'%')->get();
+        $tweets = Tweet::where('title', 'like', '%'.$request->search.'%')->get();
         return view('users.search', compact('tweets'));
     }
 }
