@@ -66,9 +66,9 @@
         </div>
         <h3 class="mt-5">Followers</h3>
         <div class="row">
-            <div class="col-lg-3 offset-lg-4">   
+            <div class="col-lg-5 offset-lg-4">   
                 @foreach($user->followers as $follower)
-                <h4><a class="text-decoration-none" href="{{ route('user.show', $follower->user->id) }}">{{ ucfirst($follower->user->name) }}</a></h4>
+                    <h4><a class="text-decoration-none" href="{{ route('user.show', $follower->user->id) }}">{{ ucfirst($follower->user->name) }}</a></h4>
                 @endforeach
             </div>
         </div>
