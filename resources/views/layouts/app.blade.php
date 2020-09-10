@@ -31,6 +31,12 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <form class="form-inline my-2 my-lg-0 ml-5" action="{{ route('search') }}" method="POST">
+                    <div class="form-group">
+                        @csrf
+                        <input type="text" name="search" value="{{ old('search') }}" class="form-control" placeholder="Search Tweets">
+                    </div>
+                </form>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->

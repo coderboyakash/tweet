@@ -24,3 +24,4 @@ Route::resource('user', 'UsersController');
 Route::get('/home', 'UsersController@index')->name('home');
 Route::get('/user/follow/{id}', 'UsersController@follow')->name('user.follow');
 Route::get('/user/unfollow/{id}', 'UsersController@unfollow')->name('user.unfollow');
+Route::post('search', 'TweetsController@search')->name('search');
