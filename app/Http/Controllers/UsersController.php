@@ -20,7 +20,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $tweets = Tweet::orderBy('created_at', 'DESC')->get();
+        $tweets = Tweet::whereUser_id(Auth::user()->id)->orderBy('created_at', 'DESC')->get();
         return view('home', compact('tweets'));
     }
 
@@ -114,5 +114,10 @@ class UsersController extends Controller
     {
         Follower::where('user_id', $id)->where('follower_id', Auth::user()->id)->delete();
         return redirect()->back();
+    }
+
+    public function followings()
+    {
+        return view('users.followings');
     }
 }

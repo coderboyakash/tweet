@@ -7,8 +7,8 @@
             <div class="row">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-9">
-                    <a href=""><i class="fa fa-twitter twitterLogo p-1 rounded-circle"></i></a>
-                    <div class="mt-3"><a href="{{ route('home') }}" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-hashtag mr-2"></i> &nbsp;&nbsp;Explore</a></div>
+                    <a href="{{ route('home') }}"><i class="fa fa-twitter twitterLogo p-1 rounded-circle"></i></a>
+                    <div class="mt-3"><a href="/" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-hashtag mr-2"></i> &nbsp;&nbsp;Explore</a></div>
                     @if(Auth::user())
                         <div class="mt-3"><a href="" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-gear mr-2 fa-spin"></i> &nbsp;&nbsp;Settings</a></div>
                     @endif
@@ -25,10 +25,14 @@
         <input class="btn btn-success mb-4" type="submit" value="Tweet">
     </form>
     @endif
+    <div class="row">
+        <a class="col-lg-6 text-center text-decoration-none pt-3 pb-3" href="{{ route('home') }}">Tweets</a>
+        <a class="col-lg-6 text-center text-decoration-none pt-3 pb-3" href="{{ route('followings') }}">Followings</a>
+    </div>
     @foreach($tweets as $tweet)
         <div class="card mb-3">
             <div class="card-body">
-                <h5 class="card-title">{{ $tweet->title }}</h5><span> by {{ $tweet->user->name }}</span>
+                <h5 class="card-title">{{ $tweet->title }}</h5><span> by <a class="text-decoration-none" href="{{ route('user.show', $tweet->user->id) }}">{{ $tweet->user->name }}</a></span>
                 <p class="card-text"><small class="text-muted">{{ $tweet->created_at }}</small></p>
                 @if( Auth::user() ? Auth::user()->id == $tweet->user->id : false)
                     <a href="javascript:void(0)" class="danger deletebtn" data-url="{{ route('tweet.destroy', $tweet->id) }}">Delete</a>
