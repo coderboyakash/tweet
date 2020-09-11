@@ -8,9 +8,9 @@
                 <div class="col-lg-3"></div>
                 <div class="col-lg-9">
                     <a href="{{ route('home') }}"><i class="fa fa-twitter twitterLogo p-1 rounded-circle"></i></a>
-                    <div class="mt-3"><a href="/" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-hashtag mr-2"></i> &nbsp;&nbsp;Explore</a></div>
-                    @if(Auth::user())
-                    <div class="mt-3"><a href="" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3" data-toggle="modal" data-target="#setting"><i class="fa fa-gear mr-2 fa-spin"></i> &nbsp;&nbsp;Settings</a></div>
+                    <div class="mt-3"><a href="{{ route('welcome') }}" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-hashtag mr-2"></i> &nbsp;&nbsp;Explore</a></div>
+                    @if(auth()->user())
+                    <div class="mt-3"><a href="javascript:void(0)" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3" data-toggle="modal" data-target="#setting"><i class="fa fa-gear mr-2 fa-spin"></i> &nbsp;&nbsp;Settings</a></div>
                      <!-- Modal -->
                      <div class="modal fade" id="setting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="col-lg-6">
-            @if(Auth::user())
+            @if(auth()->user())
     <form id="newTweet">
         @csrf
         <div class="form-group">
@@ -64,7 +64,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $tweet->title }}</h5><span> by <a class="text-decoration-none" href="{{ route('user.show', $tweet->user->id) }}">{{ $tweet->user->name }}</a></span>
                 <p class="card-text"><small class="text-muted">{{ $tweet->created_at }}</small></p>
-                @if( Auth::user() ? Auth::user()->id == $tweet->user->id : false)
+                @if( auth()->user() ? auth()->user()->id == $tweet->user->id : false)
                     <a href="javascript:void(0)" class="danger deletebtn" data-url="{{ route('tweet.destroy', $tweet->id) }}">Delete</a>
                     <a href="javascript:void(0)" data-toggle="modal" data-target="#edittweet{{$tweet->id}}">Edit</a>
                     <!-- Modal -->
@@ -106,11 +106,11 @@
     @endforeach
         </div>
         <div class="col-lg-3">
-            @if(!Auth::user())
+            @if(!auth()->user())
                 <div class="mt-3"><a href="{{ route('login') }}" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-sign-in mr-2"></i> &nbsp;&nbsp;Login</a></div>
                 <div class="mt-3"><a href="{{ route('register') }}" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-user-plus"></i> &nbsp;&nbsp;Signup</a></div>
             @else
-                <a href="{{ route('user.show', Auth::user()->id) }}" class="explore dropdown-item mb-2"><i class="fa fa-user" aria-hidden="true"></i> &nbsp;&nbsp;My Profile</a>
+                <a href="{{ route('user.show', auth()->user()->id) }}" class="explore dropdown-item mb-2"><i class="fa fa-user" aria-hidden="true"></i> &nbsp;&nbsp;My Profile</a>
                 <a class="explore dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;{{ __('Logout') }}</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf

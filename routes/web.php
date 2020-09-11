@@ -15,7 +15,7 @@ use App\Tweet;
 Route::get('/', function () {
     $tweets = Tweet::orderBy('created_at', 'DESC')->get();
     return view('welcome', compact('tweets'));
-});
+})->name('welcome');
 
 Auth::routes();
 Route::resource('tweet', 'TweetsController');

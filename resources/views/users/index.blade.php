@@ -8,9 +8,9 @@
                 <div class="col-lg-3"></div>
                 <div class="col-lg-9">
                     <a href="{{ route('home') }}"><i class="fa fa-twitter twitterLogo p-1 rounded-circle"></i></a>
-                    <div class="mt-3"><a href="/" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-hashtag mr-2"></i> &nbsp;&nbsp;Explore</a></div>
-                    @if(Auth::user())
-                        <div class="mt-3"><a href="" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3" data-toggle="modal" data-target="#setting"><i class="fa fa-gear mr-2 fa-spin"></i> &nbsp;&nbsp;Settings</a></div>
+                    <div class="mt-3"><a href="{{ route('welcome') }}" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-hashtag mr-2"></i> &nbsp;&nbsp;Explore</a></div>
+                    @if(auth()->user->())
+                        <div class="mt-3"><a href="javascript:void(0)" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3" data-toggle="modal" data-target="#setting"><i class="fa fa-gear mr-2 fa-spin"></i> &nbsp;&nbsp;Settings</a></div>
                         <!-- Modal -->
                         <div class="modal fade" id="setting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
@@ -22,16 +22,16 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                <form id="profileUpdate"  data-url="{{ route('user.update', Auth::user()->id) }}">
+                                <form id="profileUpdate"  data-url="{{ route('user.update', auth()->user->()->id) }}">
                                     @csrf
                                     @method('PATCH')
                                     <div class="form-group">
                                         <label for="name">Name</label>
-                                        <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}">
+                                        <input type="text" class="form-control" name="name" value="{{ auth()->user->()->name }}">
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Email Address</label>
-                                        <input type="email" class="form-control" name="email" value={{ Auth::user()->email }}>
+                                        <input type="email" class="form-control" name="email" value={{ auth()->user->()->email }}>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -54,8 +54,8 @@
             </div>
             <div class="row">
                 <div class="col-lg-5">
-                @if(Auth::check())
-                    @if(Auth::user()->id != $user->id)
+                @if(auth::check())
+                    @if(auth()->user->()->id != $user->id)
                         @if(following_or_not2($user->id))
                             <a class="btn btn-primary" href="{{ route('user.follow', $user->id) }}">Follow</a>
                         @elseif(!following_or_not2($user->id))
@@ -82,7 +82,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $tweet->title }}</h5><span> by {{ $tweet->user->name }}</span>
                 <p class="card-text"><small class="text-muted">{{ $tweet->created_at }}</small>
-                @if( Auth::user() ? Auth::user()->id == $tweet->user->id : false)
+                @if( auth()->user->() ? auth()->user->()->id == $tweet->user->id : false)
                     <a href="javascript:void(0)" class="danger deletebtn" data-url="{{ route('tweet.destroy', $tweet->id) }}">Delete</a>
                     <a href="javascript:void(0)" data-toggle="modal" data-target="#edittweet{{$tweet->id}}">Edit</a>
                     <!-- Modal -->
@@ -118,11 +118,11 @@
     @endforeach
         </div>
         <div class="col-lg-3">
-            @if(!Auth::user())
+            @if(!auth()->user->())
                 <div class="mt-3"><a href="{{ route('login') }}" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-sign-in mr-2"></i> &nbsp;&nbsp;Login</a></div>
                 <div class="mt-3"><a href="{{ route('register') }}" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-user-plus"></i> &nbsp;&nbsp;Signup</a></div>
             @else
-                <a href="{{ route('user.show', Auth::user()->id) }}" class="explore dropdown-item mb-2"><i class="fa fa-user" aria-hidden="true"></i> &nbsp;&nbsp;My Profile</a>
+                <a href="{{ route('user.show', auth()->user->()->id) }}" class="explore dropdown-item mb-2"><i class="fa fa-user" aria-hidden="true"></i> &nbsp;&nbsp;My Profile</a>
                 <a class="explore dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;{{ __('Logout') }}</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
