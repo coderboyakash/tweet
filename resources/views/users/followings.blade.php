@@ -155,6 +155,57 @@
         @endforeach
     @endforeach
 @endforeach
+    @if(count(auth()->user()->followers) == 0)
+    @foreach($followings as $following)
+            @if(getFollowingDetail($following->user_id))
+                @foreach(getFollowingDetail($following->user_id) as $tweet)
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $tweet->title }}</h5><span> by <a class="text-decoration-none" href="{{ route('user.show', $tweet->user->id) }}">{{ $tweet->user->name }}</a></span>
+                        <p class="card-text"><small class="text-muted">{{ $tweet->created_at }}</small></p>
+                        @if( auth()->user() ? auth()->user()->id == $tweet->user->id : false)
+                            <a href="javascript:void(0)" class="danger deletebtn" data-url="{{ route('tweet.destroy', $tweet->id) }}">Delete</a>
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="#edittweet{{$tweet->id}}">Edit</a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="edittweet{{$tweet->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="updateTweet" data-url="{{ route('tweet.update', $tweet->id) }}">
+                                            @csrf
+                                            @method('PATCH')
+                                            <div class="form-group">
+                                                <input type="text" class="form-control pb-5 pt-3" name="title" value="{{ $tweet->title }}">
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input class="btn btn-success mb-4" type="submit" value="Update Tweet">
+                                    </form>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            @else
+                            <div>
+                                @if(following_or_not($tweet->user->id))
+                                    <a class="btn btn-primary" href="{{ route('user.follow', $tweet->user->id) }}">Follow</a>
+                                @elseif(!(following_or_not($tweet->user->id)))
+                                    <a class="btn btn-warning" href="{{ route('user.unfollow', $tweet->user->id) }}">Following</a>
+                                @endif
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+            @endif
+        @endforeach
+    @endif
     </div>
     <div class="col-lg-3">
         @if(!auth()->user())
