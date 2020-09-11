@@ -97,7 +97,11 @@ class TweetsController extends Controller
     
     public function search(Request $request)
     {
-        $tweets = Tweet::where('title', 'like', '%'.$request->search.'%')->get();
+        $search = '';
+        if(isset($request->search)){
+            $search = $request->search;
+        }
+        $tweets = Tweet::where('title', 'like', '%'.$search.'%')->get();
         return view('users.search', compact('tweets'));
     }
 
