@@ -44,6 +44,6 @@ class User extends Authenticatable
     
     public function followers()
     {
-        return $this->hasMany('App\Follower');
+        return $this->hasMany('App\Follower', 'follower_id');
     }
 }

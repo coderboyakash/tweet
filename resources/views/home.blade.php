@@ -22,16 +22,16 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                            <form id="profileUpdate"  data-url="{{ route('user.update', Auth::user()->id) }}">
+                            <form id="profileUpdate"  data-url="{{ route('user.update', auth()->user()->id) }}">
                                 @csrf
                                 @method('PATCH')
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}">
+                                    <input type="text" class="form-control" name="name" value="{{ auth()->user()->name }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="name">Email Address</label>
-                                    <input type="email" class="form-control" name="email" value={{ Auth::user()->email }}>
+                                    <input type="email" class="form-control" name="email" value={{ auth()->user()->email }}>
                                 </div>
                             </div>
                             <div class="modal-footer">

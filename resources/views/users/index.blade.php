@@ -54,6 +54,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-5">
+                @if(Auth::check())
                     @if(Auth::user()->id != $user->id)
                         @if(following_or_not2($user->id))
                             <a class="btn btn-primary" href="{{ route('user.follow', $user->id) }}">Follow</a>
@@ -61,6 +62,9 @@
                             <a class="btn btn-warning" href="{{ route('user.unfollow', $user->id) }}">Following</a>
                         @endif
                     @endif
+                @else
+                    <a class="btn btn-primary" href="{{ route('user.follow', $user->id) }}">Follow</a>
+                @endif
                 </div> 
             </div>
         </div>

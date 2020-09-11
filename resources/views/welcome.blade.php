@@ -25,10 +25,12 @@
         <input class="btn btn-success mb-4" type="submit" value="Tweet">
     </form>
     @endif
+    @if(Auth::user())
     <div class="row">
         <a class="col-lg-6 text-center text-decoration-none pt-3 pb-3" href="{{ route('home') }}">Tweets</a>
         <a class="col-lg-6 text-center text-decoration-none pt-3 pb-3" href="{{ route('followings') }}">Followings</a>
     </div>
+    @endif
     @foreach($tweets as $tweet)
         <div class="card mb-3">
             <div class="card-body">
@@ -66,6 +68,17 @@
                     <div>
                     </div>
                 @endif
+                    @if(Auth::user())
+                        @if(following_or_not($tweet->user->id))
+                            @if(Auth::user()->id != $tweet->user->id)
+                                <a class="btn btn-primary" href="{{ route('user.follow', $tweet->user->id) }}">Follow</a>
+                            @endif
+                        @elseif(!(following_or_not($tweet->user->id)))
+                            <a class="btn btn-warning" href="{{ route('user.unfollow', $tweet->user->id) }}">Following</a>
+                        @endif
+                    @else
+                        <a class="btn btn-primary" href="{{ route('user.follow', $tweet->user->id) }}">Follow</a>
+                    @endif
             </div>
         </div>
     @endforeach

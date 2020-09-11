@@ -51,11 +51,6 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $user = User::find($id);
-        return view('users.index', compact('user'));
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -65,8 +60,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('users.profile');
+       //
     }
 
     /**
@@ -103,10 +97,12 @@ class UsersController extends Controller
 
     public function follow($id)
     {
-        $user = Follower::create([
-            'user_id' => $id,
-            'follower_id' => Auth::user()->id
-        ]);
+        if(Auth::user()->id != $id){
+            $user = Follower::updateOrCreate([
+                'user_id' => $id,
+                'follower_id' => Auth::user()->id
+            ]);
+        }
         return redirect()->back();
     }
 

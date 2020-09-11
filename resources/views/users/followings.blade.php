@@ -60,7 +60,7 @@
         <a class="col-lg-6 text-center text-decoration-none pt-3 pb-3" href="{{ route('followings') }}">Followings</a>
     </div>
     @foreach(Auth::user()->followers as $follower)
-        @foreach($follower->tweets as $tweet)
+        @foreach($follower->user->tweets as $tweet)
         <div class="card mb-3">
             <div class="card-body">
                 <h5 class="card-title">{{ $tweet->title }}</h5><span> by <a class="text-decoration-none" href="{{ route('user.show', $tweet->user->id) }}">{{ $tweet->user->name }}</a></span>

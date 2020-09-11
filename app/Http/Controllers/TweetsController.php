@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tweet;
+use App\User;
 use Auth;
 class TweetsController extends Controller
 {
@@ -98,5 +99,11 @@ class TweetsController extends Controller
     {
         $tweets = Tweet::where('title', 'like', '%'.$request->search.'%')->get();
         return view('users.search', compact('tweets'));
+    }
+
+    public function getUserProfile($id)
+    {
+        $user = User::find($id);
+        return view('users.index', compact('user'));
     }
 }
