@@ -20,7 +20,12 @@ use App\Tweet;
     }
 
     function getFollowingDetail($id){
-        $return = Tweet::whereUser_id($id)->get();
+        $check = Follower::whereFollower_id($id)->get();
+        if(count($check) == 0){
+            $return = Tweet::whereUser_id($id)->get();
+        }else{
+            $return = NULL;
+        }
         return $return;
     }
 ?>

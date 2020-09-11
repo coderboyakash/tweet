@@ -241,7 +241,26 @@
         }
         event.preventDefault();
     });
-    
+    $( "#profileUpdate" ).submit(function( event ) {
+        data = $( this ).serializeArray();
+        var url = $(this).data('url');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'PATCH',
+            url:url,
+            data:data,
+            success:function(response) {
+                $(".toast-body").html(response.msg);
+                $('.toast').toast('show');
+                setTimeout(function() {
+                    location.reload();
+                }, 500);
+            }
+        });
+        event.preventDefault();
+    });
 </script>    
 @endsection
 @section('styles')

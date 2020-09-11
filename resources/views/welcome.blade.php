@@ -10,9 +10,9 @@
                     <a href="{{ route('home') }}"><i class="fa fa-twitter twitterLogo p-1 rounded-circle"></i></a>
                     <div class="mt-3"><a href="{{ route('welcome') }}" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-hashtag mr-2"></i> &nbsp;&nbsp;Explore</a></div>
                     @if(auth()->user())
-                        <div class="mt-3"><a href="javascript:void(0)" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3"><i class="fa fa-gear mr-2 fa-spin"></i> &nbsp;&nbsp;Settings</a></div>
+                        <div class="mt-3"><a href="javascript:void(0)" class="explore text-decoration-none pt-2 pl-3 pb-2 pr-3" data-toggle="modal" data-target="#setting"><i class="fa fa-gear mr-2 fa-spin"></i> &nbsp;&nbsp;Settings</a></div>
                     @endif
-                </div>
+                    </div>
             </div>
         </div>
         <div class="col-lg-6">
@@ -104,6 +104,37 @@
       </div>
     </div>
 </div>
+<!-- Modal -->
+@if(auth()->check())
+<div class="modal fade" id="setting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+        <form id="profileUpdate"  data-url="{{ route('user.update', auth()->user()->id) }}">
+            @csrf
+            @method('PATCH')
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" name="name" value="{{ auth()->user()->name }}">
+            </div>
+            <div class="form-group">
+                <label for="name">Email Address</label>
+                <input type="email" class="form-control" name="email" value={{ auth()->user()->email }}>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" name="submit" value="Update Profile">
+        </form>
+        </div>
+    </div>
+</div>
+@endif
 @endsection
 @section('scripts')
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -155,6 +186,26 @@
         data = $( this ).serializeArray();
         console.log(data)
         $('#name').val(""); 
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type:'PATCH',
+            url:url,
+            data:data,
+            success:function(response) {
+                $(".toast-body").html(response.msg);
+                $('.toast').toast('show');
+                setTimeout(function() {
+                    location.reload();
+                }, 500);
+            }
+        });
+        event.preventDefault();
+    });
+    $( "#profileUpdate" ).submit(function( event ) {
+        data = $( this ).serializeArray();
+        var url = $(this).data('url');
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
