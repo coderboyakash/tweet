@@ -26,3 +26,6 @@ Route::get('/user/follow/{id}', 'UsersController@follow')->name('user.follow');
 Route::get('/user/unfollow/{id}', 'UsersController@unfollow')->name('user.unfollow');
 Route::post('search', 'TweetsController@search')->name('search');
 Route::get('user/{user}', 'TweetsController@getUserProfile')->name('user.show');
+Route::get('/chat', function() {
+    return view('users.chat');
+});

@@ -43,13 +43,16 @@
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
                         @else
-                        {{ Auth::user()->name }}
+                            <a href="javascript:void(0)" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropleft nav-item mr-4 comment"><i class="fas fa-comment"></i></a>
+                            <div class="dropdown">
+                                
+                            </div>
+                            {{ Auth::user()->name }}
                         @endguest
                     </ul>
                 </div>
@@ -61,5 +64,7 @@
         </main>
     </div>
     @yield('scripts')
+
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </body>
 </html>
