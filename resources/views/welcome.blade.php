@@ -106,33 +106,33 @@
 </div>
 <!-- Modal -->
 @if(auth()->check())
-<div class="modal fade" id="setting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-        <form id="profileUpdate"  data-url="{{ route('user.update', auth()->user()->id) }}">
-            @csrf
-            @method('PATCH')
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" name="name" value="{{ auth()->user()->name }}">
+    <div class="modal fade" id="setting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="form-group">
-                <label for="name">Email Address</label>
-                <input type="email" class="form-control" name="email" value={{ auth()->user()->email }}>
+            <div class="modal-body">
+            <form id="profileUpdate"  data-url="{{ route('user.update', auth()->user()->id) }}">
+                @csrf
+                @method('PATCH')
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" name="name" value="{{ auth()->user()->name }}">
+                </div>
+                <div class="form-group">
+                    <label for="name">Email Address</label>
+                    <input type="email" class="form-control" name="email" value={{ auth()->user()->email }}>
+                </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <input type="submit" class="btn btn-primary" name="submit" value="Update Profile">
-        </form>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-primary" name="submit" value="Update Profile">
+            </form>
+            </div>
         </div>
     </div>
-</div>
 @endif
 @endsection
