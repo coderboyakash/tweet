@@ -308,7 +308,7 @@
         event.preventDefault();
     });
     $( "#updateTweet" ).submit(function( event ) {
-        var str = $(this.title).val();
+        var str = $(this.title).val(); 
         if(str == ''){
             alert('Tweet Cannot be empty')
         }else{
