@@ -115,6 +115,7 @@ class UsersController extends Controller
     public function followings()
     {
         $followings = Follower::whereFollower_id(auth()->user()->id)->get();
+        // dd($followings);
         return view('users.followings', compact('followings'));
     }
 }
