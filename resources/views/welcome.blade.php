@@ -140,22 +140,27 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
     $( "#newTweet" ).submit(function( event ) {
-        data = $( this ).serializeArray();
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type:'POST',
-            url:'{{ route('tweet.store') }}',
-            data:data,
-            success:function(response) {
-                $(".toast-body").html(response.msg);
-                $('.toast').toast('show');
-                setTimeout(function() {
-                    location.reload();
-                }, 500);
-            }
-        });
+        var str = $(this.title).val();
+        if(str == ''){
+            alert('Tweet is blank')
+        }else{
+            data = $( this ).serializeArray();
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'POST',
+                url:'{{ route('tweet.store') }}',
+                data:data,
+                success:function(response) {
+                    $(".toast-body").html(response.msg);
+                    $('.toast').toast('show');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 500);
+                }
+            });
+        }
         event.preventDefault();
     });
 
@@ -181,26 +186,29 @@
         event.preventDefault();
     });
     $( "#updateTweet" ).submit(function( event ) {
-        var url = $(this).data('url');
-        console.log(url);
-        data = $( this ).serializeArray();
-        console.log(data)
-        $('#name').val(""); 
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type:'PATCH',
-            url:url,
-            data:data,
-            success:function(response) {
-                $(".toast-body").html(response.msg);
-                $('.toast').toast('show');
-                setTimeout(function() {
-                    location.reload();
-                }, 500);
-            }
-        });
+        var str = $(this.title).val();
+        if(str == ''){
+            alert('Tweet Cannot be empty')
+        }else{
+            var url = $(this).data('url');
+            data = $( this ).serializeArray();
+            $('#name').val(""); 
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type:'PATCH',
+                url:url,
+                data:data,
+                success:function(response) {
+                    $(".toast-body").html(response.msg);
+                    $('.toast').toast('show');
+                    setTimeout(function() {
+                        location.reload();
+                    }, 500);
+                }
+            });
+        }
         event.preventDefault();
     });
     $( "#profileUpdate" ).submit(function( event ) {
