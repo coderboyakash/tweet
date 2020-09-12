@@ -10899,3 +10899,53 @@ a.text-dark:focus {
   }
 }
 
+#mainContent {
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  padding: 0px;
+}
+
+#searchBox {
+  border-bottom: 1px solid grey;
+}
+
+#mainContent .card {
+  border: none;
+  border-bottom: 1px solid grey;
+  border-radius: 0px;
+  color: aliceblue;
+}
+
+.category {
+  color: grey;
+}
+
+.twitterLogo {
+  font-size: 35px;
+  color: black;
+}
+
+.twitterLogo:hover {
+  background-color: #0f5757;
+  transition-duration: 0.7s;
+}
+
+.explore {
+  transition-duration: 0.7s;
+  font-size: 20px;
+  color: black;
+  border-radius: 25px;
+}
+
+.explore:hover {
+  background-color: #0f5757;
+  transition-duration: 0.3s;
+  color: #5d5dfc;
+}
+
+.categories {
+  overflow: hidden;
+  height: 40px;
+  border-bottom: 1px solid grey;
+}
+
